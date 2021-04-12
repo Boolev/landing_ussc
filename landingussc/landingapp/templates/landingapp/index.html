@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .container {
+                margin-top: 30px;
+                margin-left: auto;
+                margin-right: auto;
+                width: 1100px;
+            }
+
+            .code {
+                padding: 5px;
+                border: 1px solid grey;
+                background-color: #DCDCDC;
+                border-radius: 3px;
+            }
+
+            textarea {
+                margin-top: 30px;
+                width: 400px;
+                height:100px;
+                font-size:15px;
+            }
+
+            form {
+                width: 200px;
+            }
+
+            .invisible {
+                visibility: hidden;
+            }
+
+            .alert {
+                margin-bottom: 10px;
+            }
+        </style>
+        <title>Ansible</title>
+    </head>
+    <body>
+        <div class="user_info">
+            Вы вошли в систему как {{ request.user }}
+        </div>
+        <div class="logout">
+            <a href="{% url 'logout' %}">Выйти</a>
+        </div>
+        <div class="container">
+            <div class="alert">
+                Такие команды, как "ls -la | grep test" можно не описывать словами, а написать текстом bash команды
+            </div>
+            <div class="code">
+                <code><pre>{{ script.code }}</pre></code>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <textarea name="script_translation" placeholder="Переведите этот код на человеческий язык"></textarea>
+                <input class="invisible" type="text" name="script_id" value="{{ script.id }}">
+                <input type="submit" value="Отправить">
+            </form>
+        </div>
+    </body>
+</html>
